@@ -11,8 +11,7 @@ to win points. Avoid crashing against cars.
 MVP definition, deliverables.
 
 - 2D canvas context with a road and sidewalk background that move.
-- Bike is static at the left end of the screen but the player is able to move the bike up and down, giving
-  the impression the bike changes lanes on the road. 
+- Bike is static at the left end of the screen but the player is able to move the bike up and down, giving the impression the bike changes lanes on the road. 
 - Random turists appear on the road.
 - Collision between turist and bike give points to the player.
 
