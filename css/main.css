@@ -1,0 +1,10 @@
+.canvas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+}
+
+#game {
+  border: 1px solid red;
+}
