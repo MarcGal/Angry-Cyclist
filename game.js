@@ -11,7 +11,7 @@ class Game {
     this.intervalGame = undefined;
   }
 
-  _drawBoard () { 
+  _drawBoard (){ 
     this.ctx.fillStyle = 'green';
     this.ctx.fillRect(0,0, 800, 400);
   }
@@ -19,6 +19,15 @@ class Game {
   _drawBiker (){
     this.ctx.fillStyle = 'blue';
     this.ctx.fillRect(this.biker.positionX, this.biker.positionY, this.biker.witdh, this.biker.height);
+  }
+
+  _drawTourist (){
+    this.ctx.fillStyle = 'red';
+    this.ctx.fillRect(this.tourist.positionX, this.tourist.positionY, this.tourist.witdh, this.tourist.height);
+  }
+
+  moveTourist (){
+    this.tourist.positionX += this.tourist.speed;
   }
 
   moveBiker (){
@@ -50,6 +59,8 @@ class Game {
     this._drawBoard();
     this._drawBiker();
     this.moveBiker();
+    this._drawTourist();
+    this.moveTourist();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
 
