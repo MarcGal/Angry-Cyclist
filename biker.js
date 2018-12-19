@@ -7,4 +7,20 @@ class Biker {
     this.positionX = 25;
     this.positionY = 350;
   }
+
+  moveRight (){
+    this.positionY +=4;
+  }
+
+  moveLeft (){
+    this.positionY -=4;
+  }
+
+  moveForward (){
+    this.positionX +=4;
+  }
+
+  moveBackward (){
+    this.positionX -=4;
+  }
 }

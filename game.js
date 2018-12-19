@@ -21,6 +21,24 @@ class Game {
     this.ctx.fillRect(this.biker.positionX, this.biker.positionY, this.biker.witdh, this.biker.height);
   }
 
+  moveBiker (){
+    document.onkeydown = (e) => {
+      switch (e.keyCode) {
+        case 37: 
+        this.biker.moveLeft();  
+        break;
+        case 38:
+        this.biker.moveForward();
+        break;
+        case 39: 
+        this.biker.moveRight(); 
+        break;
+        case 40:
+        this.biker.moveBackward();
+        break;
+      }
+    };
+  }
   
   start (updatePoints){
     this.points = updatePoints;
@@ -28,8 +46,10 @@ class Game {
   }
 
   _update (){
+    this.ctx.clearRect(0,0,800,400);
     this._drawBoard();
     this._drawBiker();
+    this.moveBiker();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
 
