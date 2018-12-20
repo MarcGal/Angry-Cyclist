@@ -1,9 +1,9 @@
-#start-page {
+/* #start-page {
   display: block;
-}
+} */
 
 #play {
-  display: none;
+  /* display: block; change to none and uncomment start-page */
 }
 
 .canvas {
