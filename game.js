@@ -26,6 +26,7 @@ class Game {
     this.ctx.fillRect(this.tourist.positionX, this.tourist.positionY, this.tourist.witdh, this.tourist.height);
   }
 
+
   moveTourist (){
     this.tourist.positionX += this.tourist.speed;
   }
