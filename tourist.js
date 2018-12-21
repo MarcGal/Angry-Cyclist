@@ -5,7 +5,7 @@ class Tourist {
     this.height = 15;
     this.positionX = 820;
     this.positionY = this.initialPositionY();
-    this.speed = -6;
+    this.speed = -3;
   }
 
   move (){
