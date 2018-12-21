@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-class Tourist {
+class Car {
   constructor (){
     this.witdh = 15;
     this.height = 15;

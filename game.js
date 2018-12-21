@@ -4,13 +4,13 @@ class Game {
 
   constructor (options){
     this.biker = new Biker();
-    this.tourist = new Tourist();
+    this.car = new Car();
     this.ctx = options.ctx;
     this.points = 0;
     this.lives = 3;
     this.intervalGame = undefined;
-    this.tourists = [];
-    this.startGeneratingTourist();
+    this.Cars = [];
+    this.startGeneratingCars();
   }
 
   _drawBoard (){ 
@@ -23,34 +23,33 @@ class Game {
     this.ctx.fillRect(this.biker.positionX, this.biker.positionY, this.biker.witdh, this.biker.height);
   }
 
-  _drawTourist (){
-    this.tourists.forEach((tourist) =>{
+  _drawCars (){
+    this.Cars.forEach((car) =>{
       this.ctx.fillStyle = 'red';
-      this.ctx.fillRect(tourist.positionX, tourist.positionY, tourist.witdh, tourist.height);
+      this.ctx.fillRect(car.positionX, car.positionY, car.witdh, car.height);
     });
   }
 
-  deleteTourists (){
-    this.tourists.forEach((tourist, index, array) =>{
-      if (tourist.positionX < 0){
+  deleteCars (){
+    this.Cars.forEach((car, index, array) =>{
+      if (car.positionX < 0){
         array.splice(index, 1);
       }
     });
   }
 
-  moveTourist (){
-    this.tourists.forEach(tourist=>{
-      tourist.positionX += tourist.speed;
+  moveCar (){
+    this.Cars.forEach(car=>{
+      car.positionX += car.speed;
     });
   }
 
-  startGeneratingTourist() { 
-    setInterval(function(){this.generateTourists();}.bind(this), 1000);
+  startGeneratingCars() { 
+    setInterval(function(){this.generateCars();}.bind(this), 2000);
   }
 
-  generateTourists (){
-    this.tourists.push(new Tourist());
-    console.log(this.tourists);
+  generateCars (){
+    this.Cars.push(new Car());
   }
 
 
@@ -84,10 +83,9 @@ class Game {
     this._drawBoard();
     this._drawBiker();
     this.moveBiker();
-    this._drawTourist();
-    // this.startGeneratingTourist();
-    this.deleteTourists();
-    this.moveTourist();
+    this._drawCars();
+    this.deleteCars();
+    this.moveCar();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
 
