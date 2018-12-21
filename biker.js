@@ -9,18 +9,18 @@ class Biker {
   }
 
   moveRight (){
-    this.positionY +=7;
-  }
-
-  moveLeft (){
-    this.positionY -=7;
-  }
-
-  moveForward (){
     this.positionX +=7;
   }
 
-  moveBackward (){
+  moveLeft (){
     this.positionX -=7;
+  }
+
+  moveForward (){
+    this.positionY -=7;
+  }
+
+  moveBackward (){
+    this.positionY +=7;
   }
 }
