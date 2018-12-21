@@ -9,6 +9,8 @@ class Game {
     this.points = 0;
     this.lives = 3;
     this.intervalGame = undefined;
+    this.tourists = [];
+    this.startGeneratingTourist();
   }
 
   _drawBoard (){ 
@@ -22,13 +24,27 @@ class Game {
   }
 
   _drawTourist (){
-    this.ctx.fillStyle = 'red';
-    this.ctx.fillRect(this.tourist.positionX, this.tourist.positionY, this.tourist.witdh, this.tourist.height);
+    this.tourists.forEach((tourist) =>{
+      console.log('dratourists');
+          
+      this.ctx.fillStyle = 'red';
+      this.ctx.fillRect(tourist.positionX, tourist.positionY, tourist.witdh, tourist.height);
+    });
   }
 
-
   moveTourist (){
-    this.tourist.positionX += this.tourist.speed;
+    this.tourists.forEach(tourist=>{
+      tourist.positionX += tourist.speed;
+    });
+  }
+
+  startGeneratingTourist() { 
+    setInterval(function(){this.generateTourists(); console.log(this.tourists)}.bind(this), 1000);
+    console.log('new tourist');
+  }
+
+  generateTourists (){
+    this.tourists.push(new Tourist());
   }
 
   moveBiker (){
@@ -61,6 +77,7 @@ class Game {
     this._drawBiker();
     this.moveBiker();
     this._drawTourist();
+    // this.startGeneratingTourist();
     this.moveTourist();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
