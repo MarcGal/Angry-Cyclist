@@ -3,18 +3,24 @@ class Tourist {
   constructor (){
     this.witdh = 15;
     this.height = 15;
-    this.positionX = this.initialPositionX();
-    this.positionY = 250;
+    this.positionX = 810;
+    this.positionY = 230;
     this.speed = 0.5;
+    this.crossingPoint = this.crossingPoint();
   }
 
   move (){
-    this.positionY += this.speed;
+      this.positionX -= this.speed;
   }
-  
 
-  initialPositionX (){
-    let initX = Math.floor(Math.random() * (700 - 40) + 40);
-    return initX;
+  crossingPoint () {
+    this.crossingPoint = Math.floor(Math.random() * (750 - 40) + 40);
+    console.log(`this is my crossing point ${this.crossingPoint}`);
+    return this.crossingPoint;
   }
+
+  // initialPositionX (){
+  //   let initX = Math.floor(Math.random() * (700 - 40) + 40);
+  //   return initX;
+  // }
 }
