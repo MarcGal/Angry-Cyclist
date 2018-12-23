@@ -11,6 +11,7 @@ class Tourist {
   move (){
     this.positionY += this.speed;
   }
+  
 
   initialPositionX (){
     let initX = Math.floor(Math.random() * (700 - 40) + 40);
