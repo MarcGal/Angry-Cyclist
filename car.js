@@ -1,11 +1,11 @@
 /*jshint esversion: 6 */
 class Car {
   constructor (){
-    this.witdh = 15;
-    this.height = 15;
+    this.witdh = 40;
+    this.height = 25;
     this.positionX = 820;
     this.positionY = this.initialPositionY();
-    this.speed = -3;
+    this.speed = -1;
   }
 
   move (){

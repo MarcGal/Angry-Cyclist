@@ -5,12 +5,15 @@ class Game {
   constructor (options){
     this.biker = new Biker();
     this.car = new Car();
+    this.tourist = new Tourist();
     this.ctx = options.ctx;
     this.points = 0;
     this.lives = 3;
     this.intervalGame = undefined;
     this.Cars = [];
+    this.Tourists = [];
     this.startGeneratingCars();
+    this.startGeneratingTourists();
   }
 
   _drawBoard (){ 
@@ -18,41 +21,13 @@ class Game {
     this.ctx.fillRect(0,0, 800, 400);
   }
 
+  //=============== BIKER FUNCTIONS =========================
+
+
   _drawBiker (){
     this.ctx.fillStyle = 'blue';
     this.ctx.fillRect(this.biker.positionX, this.biker.positionY, this.biker.witdh, this.biker.height);
   }
-
-  _drawCars (){
-    this.Cars.forEach((car) =>{
-      this.ctx.fillStyle = 'red';
-      this.ctx.fillRect(car.positionX, car.positionY, car.witdh, car.height);
-    });
-  }
-
-  deleteCars (){
-    this.Cars.forEach((car, index, array) =>{
-      if (car.positionX < 0){
-        array.splice(index, 1);
-      }
-    });
-  }
-
-  moveCar (){
-    this.Cars.forEach(car=>{
-      car.positionX += car.speed;
-    });
-  }
-
-  startGeneratingCars() { 
-    setInterval(function(){this.generateCars();}.bind(this), 2000);
-  }
-
-  generateCars (){
-    this.Cars.push(new Car());
-  }
-
-
 
   moveBiker (){
     document.onkeydown = (e) => {
@@ -72,6 +47,71 @@ class Game {
       }
     };
   }
+
+  //=============== CAR FUNCTIONS =========================
+
+  _drawCars (){
+    this.Cars.forEach((car) =>{
+      this.ctx.fillStyle = 'red';
+      this.ctx.fillRect(car.positionX, car.positionY, car.witdh, car.height);
+    });
+  }
+
+  deleteCars (){
+    this.Cars.forEach((car, index, array) =>{
+      if (car.positionX < -40){
+        array.splice(index, 1);
+      }
+    });
+  }
+
+  moveCar (){
+    this.Cars.forEach(car=>{
+      car.positionX += car.speed;
+    });
+  }
+
+  startGeneratingCars() { 
+    setInterval(function(){this.generateCars();}.bind(this), 3000);
+  }
+
+  generateCars (){
+    this.Cars.push(new Car());
+  }
+
+// ============ TOURIST FUNCTIONS  =========================
+
+_drawTourists (){
+  this.Tourists.forEach((tourist) =>{
+    this.ctx.fillStyle = 'yellow';
+    this.ctx.fillRect(tourist.positionX, tourist.positionY, tourist.witdh, tourist.height);
+  });
+}
+
+deleteTourists (){
+  this.Tourists.forEach((tourist, index, array) =>{
+    if (tourist.positionY > 400){
+      array.splice(index, 1);
+    }
+  });
+}
+
+moveTourists (){
+  this.Tourists.forEach(tourist=>{
+    tourist.positionY += tourist.speed;
+  });
+}
+
+startGeneratingTourists() { 
+  setInterval(function(){this.generateTourists();}.bind(this), 1000);
+}
+
+generateTourists (){
+  this.Tourists.push(new Tourist());
+}
+
+// ============ START & UPDATE FUNCTIONS  =========================
+
   
   start (updatePoints){
     this.points = updatePoints;
@@ -86,6 +126,9 @@ class Game {
     this._drawCars();
     this.deleteCars();
     this.moveCar();
+    this._drawTourists();
+    this.deleteTourists();
+    this.moveTourists();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
 
