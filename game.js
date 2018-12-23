@@ -72,7 +72,7 @@ class Game {
   }
 
   startGeneratingCars() { 
-    setInterval(function(){this.generateCars();}.bind(this), 3000);
+    setInterval(function(){this.generateCars();}.bind(this), 4000);
   }
 
   generateCars (){
@@ -80,6 +80,14 @@ class Game {
   }
 
 // ============ TOURIST FUNCTIONS  =========================
+
+startGeneratingTourists() { 
+  setInterval(function(){this.generateTourists();}.bind(this), 3000);
+}
+
+generateTourists (){
+  this.Tourists.push(new Tourist());
+}
 
 _drawTourists (){
   this.Tourists.forEach((tourist) =>{
@@ -96,18 +104,12 @@ deleteTourists (){
   });
 }
 
-moveTourists (){
-  this.Tourists.forEach(tourist=>{
-    tourist.positionY += tourist.speed;
+crossStreet (){
+  this.Tourists.forEach(tourist => {
+    if (tourist.crossingPoint !== tourist.positionX){
+      tourist.positionX -= tourist.speed;
+    } else{tourist.positionY += tourist.speed;}
   });
-}
-
-startGeneratingTourists() { 
-  setInterval(function(){this.generateTourists();}.bind(this), 1000);
-}
-
-generateTourists (){
-  this.Tourists.push(new Tourist());
 }
 
 // ============ START & UPDATE FUNCTIONS  =========================
@@ -128,8 +130,7 @@ generateTourists (){
     this.moveCar();
     this._drawTourists();
     this.deleteTourists();
-    this.moveTourists();
+    this.crossStreet();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
-
 }
