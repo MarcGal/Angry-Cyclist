@@ -132,7 +132,7 @@ collisionBikerTourist (){
 }
 
 
-// CHECK COLLISION BETWEEN BIKER AND TOURISTS
+// CHECK COLLISION BETWEEN BIKER AND CARS
 collisionBikerCar (){
   this.Cars.forEach((car)=> {
     // 2D COLLISION CHECK ALGORITHN SEE MDN
@@ -141,6 +141,7 @@ collisionBikerCar (){
         this.biker.positionY < car.positionY + car.height &&
         this.biker.height + this.biker.positionY > car.positionY) === true){
         console.log('You lost one live');
+        // RESET TO STARTING POSITION WHEN HIT BY CAR
         this.biker.positionX = 25;
         this.lives --;
         console.log(this.lives);
