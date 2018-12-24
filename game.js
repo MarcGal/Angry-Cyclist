@@ -117,7 +117,7 @@ crossStreet (){
 // ================== COLLISION FUNCTIONS =========================
 
 // CHECK COLLISION BETWEEN BIKER AND TOURISTS
-collisionCheck (){
+collisionBikerTourist (){
   this.Tourists.forEach((tourist, index, array )=> {
     // 2D COLLISION CHECK ALGORITHN SEE MDN
     if ((this.biker.positionX < tourist.positionX + tourist.witdh &&
@@ -130,6 +130,24 @@ collisionCheck (){
     }
   });
 }
+
+
+// CHECK COLLISION BETWEEN BIKER AND TOURISTS
+collisionBikerCar (){
+  this.Cars.forEach((car)=> {
+    // 2D COLLISION CHECK ALGORITHN SEE MDN
+    if ((this.biker.positionX < car.positionX + car.witdh &&
+        this.biker.positionX + this.biker.witdh > car.positionX &&
+        this.biker.positionY < car.positionY + car.height &&
+        this.biker.height + this.biker.positionY > car.positionY) === true){
+        console.log('You lost one live');
+        this.biker.positionX = 25;
+        this.lives --;
+        console.log(this.lives);
+    }
+  });
+}
+
 
 
 // ============ START & UPDATE FUNCTIONS  =========================
@@ -151,7 +169,8 @@ collisionCheck (){
     this._drawTourists();
     this.deleteTourists();
     this.crossStreet();
-    this.collisionCheck ();
+    this.collisionBikerTourist();
+    this.collisionBikerCar ();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
 }
