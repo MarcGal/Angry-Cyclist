@@ -108,9 +108,29 @@ crossStreet (){
   this.Tourists.forEach(tourist => {
     if (tourist.crossingPoint !== tourist.positionX){
       tourist.positionX -= tourist.speed;
-    } else{tourist.positionY += tourist.speed;}
+    } else {
+      tourist.positionY += tourist.speed;
+    }
   });
 }
+
+// ================== COLLISION FUNCTIONS =========================
+
+// CHECK COLLISION BETWEEN BIKER AND TOURISTS
+collisionCheck (){
+  this.Tourists.forEach((tourist, index, array )=> {
+    // 2D COLLISION CHECK ALGORITHN SEE MDN
+    if ((this.biker.positionX < tourist.positionX + tourist.witdh &&
+        this.biker.positionX + this.biker.witdh > tourist.positionX &&
+        this.biker.positionY < tourist.positionY + tourist.height &&
+        this.biker.height + this.biker.positionY > tourist.positionY) === true){
+        console.log('You just killed a tourist');
+        //  DELETE  TOURIST FROM ARRAY UPON COLLISION
+        array.splice(index, 1);
+    }
+  });
+}
+
 
 // ============ START & UPDATE FUNCTIONS  =========================
 
@@ -131,6 +151,7 @@ crossStreet (){
     this._drawTourists();
     this.deleteTourists();
     this.crossStreet();
+    this.collisionCheck ();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
 }
