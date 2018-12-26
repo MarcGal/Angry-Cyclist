@@ -57,6 +57,12 @@ class Game {
     return bikerPoints;
   }
 
+  loseLive (){
+    let bikerLive = document.querySelector('#lives>h2>span');
+    bikerLive.innerText = this.lives;
+    return bikerLive;
+  }
+
   //=============== CAR FUNCTIONS =========================
 
   _drawCars (){
@@ -207,10 +213,11 @@ collisionTouristCar (){
     this.deleteTourists();
     this.crossStreet();
     this.collisionBikerTourist();
-    this.showBikerPoints ();
+    this.showBikerPoints();
     this.collisionTouristCar();
-    this.showCarPoints ();
-    this.collisionBikerCar ();
+    this.showCarPoints();
+    this.collisionBikerCar();
+    this.loseLive();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
 }
