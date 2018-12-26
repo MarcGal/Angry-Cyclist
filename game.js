@@ -8,6 +8,7 @@ class Game {
     this.tourist = new Tourist();
     this.ctx = options.ctx;
     this.points = 0;
+    this.updatePointsCB = undefined;
     this.lives = 3;
     this.intervalGame = undefined;
     this.Cars = [];
@@ -46,6 +47,13 @@ class Game {
         break;
       }
     };
+  }
+
+
+  showBikerPoints (){
+    let bikerPoints = document.querySelector('#biker-points>h2>span');
+    bikerPoints.innerText = this.points;
+    return bikerPoints;
   }
 
   //=============== CAR FUNCTIONS =========================
@@ -125,6 +133,9 @@ collisionBikerTourist (){
         this.biker.positionY < tourist.positionY + tourist.height &&
         this.biker.height + this.biker.positionY > tourist.positionY) === true){
         console.log('You just killed a tourist');
+        // ADDS ONE POINT PER TOURIST
+        this.points ++;
+        console.log(this.points);
         //  DELETE  TOURIST FROM ARRAY UPON COLLISION
         array.splice(index, 1);
     }
@@ -154,8 +165,8 @@ collisionBikerCar (){
 // ============ START & UPDATE FUNCTIONS  =========================
 
   
-  start (updatePoints){
-    this.points = updatePoints;
+  start (updatePointsCB){
+    this.updatePointsCB = updatePointsCB;
     this._update();
   }
 
@@ -171,6 +182,7 @@ collisionBikerCar (){
     this.deleteTourists();
     this.crossStreet();
     this.collisionBikerTourist();
+    this.showBikerPoints ();
     this.collisionBikerCar ();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
