@@ -12,6 +12,7 @@ class Game {
     this.lives = 3;
     this.intervalGame = undefined;
     this.Cars = [];
+    this.carPoints = 0;
     this.Tourists = [];
     this.startGeneratingCars();
     this.startGeneratingTourists();
@@ -87,6 +88,12 @@ class Game {
     this.Cars.push(new Car());
   }
 
+  showCarPoints (){
+    let carPoints = document.querySelector('#car-points>h2>span');
+    carPoints.innerText = this.carPoints;
+    return carPoints;
+  }
+
 // ============ TOURIST FUNCTIONS  =========================
 
 startGeneratingTourists() { 
@@ -160,6 +167,24 @@ collisionBikerCar (){
   });
 }
 
+// CHECK COLLISION BETWEEN TOURISTS AND CARS
+collisionTouristCar (){
+  this.Cars.forEach((car)=> {
+    this.Tourists.forEach((tourist, index, array) => {
+      // 2D COLLISION CHECK ALGORITHN SEE MDN
+    if ((tourist.positionX < car.positionX + car.witdh &&
+      tourist.positionX + tourist.witdh > car.positionX &&
+      tourist.positionY < car.positionY + car.height &&
+      tourist.height + tourist.positionY > car.positionY) === true){
+      console.log('Car gains one point');
+      this.carPoints ++;
+      //  DELETE  TOURIST FROM ARRAY UPON COLLISION
+      array.splice(index, 1);
+      }
+    });
+  });
+}
+
 
 
 // ============ START & UPDATE FUNCTIONS  =========================
@@ -183,6 +208,8 @@ collisionBikerCar (){
     this.crossStreet();
     this.collisionBikerTourist();
     this.showBikerPoints ();
+    this.collisionTouristCar();
+    this.showCarPoints ();
     this.collisionBikerCar ();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
