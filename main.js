@@ -15,8 +15,11 @@ document.onload = function() {
     ctx: ctx,
   });
 
-  game.start((points) => {
-    console.log(points);
+  
+
+  game.start(() => {
+    // console.log(points);
+    // showBikerPoints();
   });
 
 }();
