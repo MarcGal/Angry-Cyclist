@@ -226,9 +226,11 @@ collisionTouristCar (){
 
   gameOver (){
     const over = document.querySelector('#game-over');
+    const stats = document.querySelector('#game-stats');
     if (this.lives <= 0){
       over.style = 'display: block';
       play.style = 'display: none';
+      stats.style = 'display: none';
     }
   }
 

@@ -3,7 +3,11 @@
 } */
 
 #play {
-  /* display: block; change to none and uncomment start-page */
+  display: block;
+}
+
+#game-stats{
+  display: block;
 }
 
 .canvas {
@@ -15,4 +19,8 @@
 
 #game {
   border: 1px solid red;
+}
+
+#game-over {
+  display: none;
 }
