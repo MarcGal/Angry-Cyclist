@@ -218,6 +218,19 @@ collisionTouristCar (){
     this.showCarPoints();
     this.collisionBikerCar();
     this.loseLive();
+    this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
+
+// ======================= GAME OVER FUNCTION ===============================
+
+  gameOver (){
+    const over = document.querySelector('#game-over');
+    if (this.lives <= 0){
+      over.style = 'display: block';
+      play.style = 'display: none';
+    }
+  }
+
 }
+
