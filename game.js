@@ -16,6 +16,9 @@ class Game {
     this.Tourists = [];
     this.startGeneratingCars();
     this.startGeneratingTourists();
+    this.carSpeed = window.setTimeout(this.speedUpCars, 10000);
+    // this.speedUpCars();
+
   }
 
   _drawBoard (){ 
@@ -87,7 +90,7 @@ class Game {
   }
 
   startGeneratingCars() { 
-    setInterval(function(){this.generateCars();}.bind(this), 4000);
+    setInterval(function(){this.generateCars();}.bind(this), 3000);
   }
 
   generateCars (){
@@ -99,6 +102,14 @@ class Game {
     carPoints.innerText = this.carPoints;
     return carPoints;
   }
+
+// Increase the speed of cars after 30 seconds
+  speedUpCars (){
+    setTimeout(function (){
+      this.Cars.forEach(car=>{
+      car.speed = -3;
+    });}.bind(this), 30000);
+   }
 
 // ============ TOURIST FUNCTIONS  =========================
 
@@ -134,6 +145,14 @@ crossStreet (){
     }
   });
 }
+
+// Increase the speed of tourists after 40 seconds
+speedUpTourists (){
+  setTimeout(function (){
+    this.Tourists.forEach(tourist=>{
+    tourist.speed = 1;
+  });}.bind(this), 40000);
+ }
 
 // ================== COLLISION FUNCTIONS =========================
 
@@ -218,6 +237,7 @@ collisionTouristCar (){
     this.showCarPoints();
     this.collisionBikerCar();
     this.loseLive();
+    this.speedUpCars();
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }

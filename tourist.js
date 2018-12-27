@@ -19,8 +19,4 @@ class Tourist {
     return this.crossingPoint;
   }
 
-  // initialPositionX (){
-  //   let initX = Math.floor(Math.random() * (700 - 40) + 40);
-  //   return initX;
-  // }
 }
