@@ -17,8 +17,6 @@ class Game {
     this.startGeneratingCars();
     this.startGeneratingTourists();
     this.carSpeed = window.setTimeout(this.speedUpCars, 10000);
-    // this.speedUpCars();
-
   }
 
   _drawBoard (){ 
