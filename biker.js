@@ -9,18 +9,36 @@ class Biker {
   }
 
   moveRight (){
-    this.positionX +=10;
+    if (this.positionX + 30 > 800){
+      console.log("You can't continue");
+    } else {
+      this.positionX +=10;
+    }
   }
 
   moveLeft (){
-    this.positionX -=10;
+    if (this.positionX - 6 < 0){
+      console.log("You can't continue");
+    } else {
+      this.positionX -=10;
+    }
   }
 
   moveForward (){
-    this.positionY -=10;
+    if (this.positionY - 6 < 250){
+      console.log("You can't continue");
+    } else {
+      this.positionY -=10;
+    }
   }
 
   moveBackward (){
-    this.positionY +=10;
+    if (this.positionY + 30 > 400){
+      console.log("You can't continue");
+    } else {
+      this.positionY +=10;
+    }
   }
+
 }
+
