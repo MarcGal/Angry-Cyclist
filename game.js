@@ -109,6 +109,7 @@ class Game {
     });}.bind(this), 30000);
    }
 
+
 // ============ TOURIST FUNCTIONS  =========================
 
 startGeneratingTourists() { 
