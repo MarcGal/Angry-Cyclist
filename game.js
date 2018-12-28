@@ -150,7 +150,7 @@ speedUpTourists (){
   setTimeout(function (){
     this.Tourists.forEach(tourist=>{
     tourist.speed = 1;
-  });}.bind(this), 40000);
+  });}.bind(this), 30000);
  }
 
 // ================== COLLISION FUNCTIONS =========================
@@ -237,6 +237,7 @@ collisionTouristCar (){
     this.collisionBikerCar();
     this.loseLive();
     this.speedUpCars();
+    this.speedUpTourists();
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
