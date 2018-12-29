@@ -16,7 +16,6 @@ class Game {
     this.Tourists = [];
     this.startGeneratingCars();
     this.startGeneratingTourists();
-    this.carSpeed = window.setTimeout(this.speedUpCars, 10000);
   }
 
   _drawBoard (){ 
@@ -66,18 +65,20 @@ class Game {
 
   //=============== CAR FUNCTIONS =========================
 
+  startGeneratingCars() { 
+    setInterval(function(){this.generateCars();}.bind(this), 2500);
+  }
+
+
+  generateCars (){
+    this.Cars.push(new Car());
+  }
+
+
   _drawCars (){
     this.Cars.forEach((car) =>{
       this.ctx.fillStyle = 'red';
       this.ctx.fillRect(car.positionX, car.positionY, car.witdh, car.height);
-    });
-  }
-
-  deleteCars (){
-    this.Cars.forEach((car, index, array) =>{
-      if (car.positionX < -40){
-        array.splice(index, 1);
-      }
     });
   }
 
@@ -87,12 +88,12 @@ class Game {
     });
   }
 
-  startGeneratingCars() { 
-    setInterval(function(){this.generateCars();}.bind(this), 3000);
-  }
-
-  generateCars (){
-    this.Cars.push(new Car());
+  deleteCars (){
+    this.Cars.forEach((car, index, array) =>{
+      if (car.positionX < -40){
+        array.splice(index, 1);
+      }
+    });
   }
 
   showCarPoints (){
@@ -105,15 +106,16 @@ class Game {
   speedUpCars (){
     setTimeout(function (){
       this.Cars.forEach(car=>{
-      car.speed = -3;
-    });}.bind(this), 30000);
+      car.speed = -2.5;
+    });}.bind(this), 25000);
    }
+
 
 
 // ============ TOURIST FUNCTIONS  =========================
 
 startGeneratingTourists() { 
-  setInterval(function(){this.generateTourists();}.bind(this), 3000);
+  setInterval(function(){this.generateTourists();}.bind(this), 2000);
 }
 
 generateTourists (){
@@ -145,13 +147,13 @@ crossStreet (){
   });
 }
 
-// Increase the speed of tourists after 40 seconds
-speedUpTourists (){
-  setTimeout(function (){
-    this.Tourists.forEach(tourist=>{
-    tourist.speed = 1;
-  });}.bind(this), 30000);
- }
+// Increase the speed of tourists after 25 seconds
+// speedUpTourists (){
+//   setTimeout(function (){
+//     this.Tourists.forEach(tourist=>{
+//     tourist.speed = 0.8;
+//   });}.bind(this), 25000);
+//  }
 
 // ================== COLLISION FUNCTIONS =========================
 
@@ -210,7 +212,6 @@ collisionTouristCar (){
 }
 
 
-
 // ============ START & UPDATE FUNCTIONS  =========================
 
   
@@ -237,7 +238,8 @@ collisionTouristCar (){
     this.collisionBikerCar();
     this.loseLive();
     this.speedUpCars();
-    this.speedUpTourists();
+    // this.orderToCreateMore ();
+    // this.speedUpTourists(); See tourists functions
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
@@ -253,6 +255,5 @@ collisionTouristCar (){
       stats.style = 'display: none';
     }
   }
-
 }
 
