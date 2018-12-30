@@ -3,6 +3,7 @@
 class Game {
 
   constructor (options){
+    this.background = new Background();
     this.biker = new Biker();
     this.car = new Car();
     this.tourist = new Tourist();
@@ -18,12 +19,29 @@ class Game {
     this.startGeneratingTourists();
   }
 
+
+// ==================== BOARD FUCNCTIONS =====================================
   _drawBoard (){ 
-    this.ctx.fillStyle = 'green';
+    // this.ctx.fillStyle = 'green';
     this.ctx.fillRect(0,0, 800, 400);
   }
 
-  //=============== BIKER FUNCTIONS =========================
+  drawBackground (){
+    this.ctx.drawImage(this.background.img, this.background.x, 0);
+    if (this.background.speed < 0) {
+      this.ctx.drawImage(this.background.img, this.background.x + this.background.width, 0);
+    } else {
+      this.ctx.drawImage(this.background.img, this.background.x - this.background.width, 0);
+    }
+  }
+
+  moveBackground(){
+    // Infinite backgroun loop
+    this.background.x += this.background.speed; 
+    this.background.x %= this.background.width;
+  }
+
+  //=============== BIKER FUNCTIONS ================================================
 
 
   _drawBiker (){
@@ -63,7 +81,7 @@ class Game {
     return bikerLive;
   }
 
-  //=============== CAR FUNCTIONS =========================
+  //=============== CAR FUNCTIONS ==========================================================
 
   startGeneratingCars() { 
     setInterval(function(){this.generateCars();}.bind(this), 2500);
@@ -112,7 +130,7 @@ class Game {
 
 
 
-// ============ TOURIST FUNCTIONS  =========================
+// ============ TOURIST FUNCTIONS  ==========================================================
 
 startGeneratingTourists() { 
   setInterval(function(){this.generateTourists();}.bind(this), 2000);
@@ -155,7 +173,7 @@ crossStreet (){
 //   });}.bind(this), 25000);
 //  }
 
-// ================== COLLISION FUNCTIONS =========================
+// ================== COLLISION FUNCTIONS ==========================================================
 
 // CHECK COLLISION BETWEEN BIKER AND TOURISTS
 collisionBikerTourist (){
@@ -212,7 +230,7 @@ collisionTouristCar (){
 }
 
 
-// ============ START & UPDATE FUNCTIONS  =========================
+// ============ START & UPDATE FUNCTIONS  ==========================================================
 
   
   start (updatePointsCB){
@@ -223,6 +241,8 @@ collisionTouristCar (){
   _update (){
     this.ctx.clearRect(0,0,800,400);
     this._drawBoard();
+    this.drawBackground();
+    this.moveBackground();
     this._drawBiker();
     this.moveBiker();
     this._drawCars();
@@ -244,7 +264,7 @@ collisionTouristCar (){
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
 
-// ======================= GAME OVER FUNCTION ===============================
+// ======================= GAME OVER FUNCTION ================================================================
 
   gameOver (){
     const over = document.querySelector('#game-over');
