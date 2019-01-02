@@ -95,8 +95,7 @@ class Game {
 
   _drawCars (){
     this.Cars.forEach((car) =>{
-      this.ctx.fillStyle = 'red';
-      this.ctx.fillRect(car.positionX, car.positionY, car.witdh, car.height);
+      this.ctx.drawImage(car.img, car.positionX, car.positionY);
     });
   }
 
