@@ -45,8 +45,9 @@ class Game {
 
 
   _drawBiker (){
-    this.ctx.fillStyle = 'blue';
-    this.ctx.fillRect(this.biker.positionX, this.biker.positionY, this.biker.witdh, this.biker.height);
+    // this.ctx.fillStyle = 'blue';
+    // this.ctx.fillRect(this.biker.positionX, this.biker.positionY, this.biker.witdh, this.biker.height);
+    this.ctx.drawImage(this.biker.img, this.biker.positionX, this.biker.positionY);
   }
 
   moveBiker (){

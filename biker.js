@@ -2,8 +2,10 @@
 class Biker {
 
   constructor (){
-    this.witdh = 25;
-    this.height = 15;
+    this.img = new Image(30, 18);
+    this.img.src = 'img/Bike_orange.png';
+    this.witdh = 30;
+    this.height = 18;
     this.positionX = 25;
     this.positionY = 350;
   }
