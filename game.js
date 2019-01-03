@@ -22,7 +22,6 @@ class Game {
 
 // ==================== BOARD FUCNCTIONS =====================================
   _drawBoard (){ 
-    // this.ctx.fillStyle = 'green';
     this.ctx.fillRect(0,0, 800, 400);
   }
 
@@ -45,8 +44,6 @@ class Game {
 
 
   _drawBiker (){
-    // this.ctx.fillStyle = 'blue';
-    // this.ctx.fillRect(this.biker.positionX, this.biker.positionY, this.biker.witdh, this.biker.height);
     this.ctx.drawImage(this.biker.img, this.biker.positionX, this.biker.positionY);
   }
 
@@ -140,10 +137,25 @@ generateTourists (){
   this.Tourists.push(new Tourist());
 }
 
+//    OLD DRAW TOURIST FUNCTION 
+// _drawTourists (){ 
+//   this.Tourists.forEach((tourist) =>{
+//     // this.ctx.fillStyle = 'yellow';
+//     // this.ctx.fillRect(tourist.positionX, tourist.positionY, tourist.witdh, tourist.height);
+//     this.ctx.drawImage(tourist.img, tourist.positionX, tourist.positionY);
+//   });
+// }
+
+updateFrame () {
+  this.Tourists.forEach((tourist) =>{
+    tourist.currentFrame = ++tourist.currentFrame % tourist.frameCount;
+    tourist.srcX = tourist.currentFrame * tourist.widthFrame;
+  });
+}
+
 _drawTourists (){
   this.Tourists.forEach((tourist) =>{
-    this.ctx.fillStyle = 'yellow';
-    this.ctx.fillRect(tourist.positionX, tourist.positionY, tourist.witdh, tourist.height);
+    this.ctx.drawImage(tourist.img, tourist.srcX, tourist.srcY, tourist.widthFrame, tourist.heightFrame, tourist.positionX, tourist.positionY, tourist.widthFrame, tourist.heightFrame);
   });
 }
 
@@ -161,6 +173,7 @@ crossStreet (){
       tourist.positionX -= tourist.speed;
     } else {
       tourist.positionY += tourist.speed;
+      tourist.srcY = 0; // change sprite frame to front walk
     }
   });
 }
@@ -179,9 +192,9 @@ crossStreet (){
 collisionBikerTourist (){
   this.Tourists.forEach((tourist, index, array )=> {
     // 2D COLLISION CHECK ALGORITHN SEE MDN
-    if ((this.biker.positionX < tourist.positionX + tourist.witdh &&
+    if ((this.biker.positionX < tourist.positionX + 32 &&
         this.biker.positionX + this.biker.witdh > tourist.positionX &&
-        this.biker.positionY < tourist.positionY + tourist.height &&
+        this.biker.positionY < tourist.positionY + 48 &&
         this.biker.height + this.biker.positionY > tourist.positionY) === true){
         console.log('You just killed a tourist');
         // ADDS ONE POINT PER TOURIST
@@ -217,9 +230,9 @@ collisionTouristCar (){
     this.Tourists.forEach((tourist, index, array) => {
       // 2D COLLISION CHECK ALGORITHN SEE MDN
     if ((tourist.positionX < car.positionX + car.witdh &&
-      tourist.positionX + tourist.witdh > car.positionX &&
+      tourist.positionX + 32 > car.positionX &&
       tourist.positionY < car.positionY + car.height &&
-      tourist.height + tourist.positionY > car.positionY) === true){
+      48 + tourist.positionY > car.positionY) === true){
       console.log('Car gains one point');
       this.carPoints ++;
       //  DELETE  TOURIST FROM ARRAY UPON COLLISION
@@ -249,6 +262,7 @@ collisionTouristCar (){
     this.deleteCars();
     this.moveCar();
     this._drawTourists();
+    this.updateFrame ();
     this.deleteTourists();
     this.crossStreet();
     this.collisionBikerTourist();
@@ -258,8 +272,6 @@ collisionTouristCar (){
     this.collisionBikerCar();
     this.loseLive();
     this.speedUpCars();
-    // this.orderToCreateMore ();
-    // this.speedUpTourists(); See tourists functions
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
