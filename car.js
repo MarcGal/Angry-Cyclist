@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 class Car {
   constructor (){
-    this.img = new Image(40, 25);
+    this.img = new Image();
     this.img.src = 'img/Car.png';
     this.witdh = 40;
     this.height = 25;
