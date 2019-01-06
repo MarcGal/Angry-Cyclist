@@ -27,7 +27,7 @@ class Tourist {
       this.positionX -= this.speed;
   }
 
-  crossingPoint () {
+  crossingPoint () { //Generate random crossing point for each tourist
     this.crossingPoint = Math.floor(Math.random() * (750 - 40) + 40);
     console.log(`this is my crossing point ${this.crossingPoint}`);
     return this.crossingPoint;

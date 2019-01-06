@@ -15,7 +15,7 @@ class Car {
   }
 
   initialPositionY (){
-    let initY = Math.floor(Math.random() * (395 - 250) + 250);
+    let initY = Math.floor(Math.random() * (380 - 250) + 250);
     return initY;
   }
 } 
