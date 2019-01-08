@@ -1,20 +1,75 @@
-/* #start-page {
-  display: block;
-} */
-/* 
-#play {
-  display: block;
-} */
-
-#game-stats{
-  display: block;
+body {
+  background-color: black;
 }
+
+#portada > img {
+  max-width: 60%;
+  margin-left: 18%;
+  margin-top: 2%;
+}
+
+#start {
+  display: block;
+  position: relative;
+}
+
+#start-button {
+  position: absolute;
+  background-color: red;
+  width: 18%;
+  height: 8%;
+  font-size: 30px;
+  font-weight: 700;
+  border-radius: 10px;
+  bottom: 10%;
+  left: 45%;
+}
+
+ #play {
+  display: none;
+} 
+
+
+#statistics {
+  display: none;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 5%;
+}
+
+#biker-points {
+  margin-left: 2%;
+  margin-right: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
+  background-color: green;
+  border-radius: 10px;
+}
+
+#lives {
+  margin-left: 2%;
+  margin-right: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
+  background-color: blue;
+  border-radius: 10px;
+}
+
+#car-points {
+  margin-left: 2%;
+  margin-right: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
+  background-color: red;
+  border-radius: 10px;
+}
+
 
 .canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 80px;
+  margin-top: 2%;
 }
 
 #game {
@@ -23,4 +78,23 @@
 
 #game-over {
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+#game-over > h1 {
+  color: red;
+}
+
+#re-start {
+  background-color: red;
+  width: 18%;
+  height: 8%;
+  font-size: 25px;
+  font-weight: 600;
+  border-radius: 10px;
+  margin-top: 4%;
+}
+
+

@@ -15,8 +15,10 @@ class Game {
     this.Cars = [];
     this.carPoints = 0;
     this.Tourists = [];
+    this.status = 'running';
     this.startGeneratingCars();
     this.startGeneratingTourists();
+    this.moveTourists ();
   }
 
 
@@ -137,33 +139,20 @@ generateTourists (){
   this.Tourists.push(new Tourist());
 }
 
-//    OLD DRAW TOURIST FUNCTION 
-// _drawTourists (){ 
-//   this.Tourists.forEach((tourist) =>{
-//     // this.ctx.fillStyle = 'yellow';
-//     // this.ctx.fillRect(tourist.positionX, tourist.positionY, tourist.witdh, tourist.height);
-//     this.ctx.drawImage(tourist.img, tourist.positionX, tourist.positionY);
-//   });
-// }
-
-updateFrame () {
-  this.Tourists.forEach((tourist) =>{
-    tourist.currentFrame = ++tourist.currentFrame % tourist.frameCount;
-    tourist.srcX = tourist.currentFrame * tourist.widthFrame;
-  });
-}
-
 _drawTourists (){
   this.Tourists.forEach((tourist) =>{
     this.ctx.drawImage(tourist.img, tourist.srcX, tourist.srcY, tourist.widthFrame, tourist.heightFrame, tourist.positionX, tourist.positionY, tourist.widthFrame, tourist.heightFrame);
   });
 }
 
-deleteTourists (){
-  this.Tourists.forEach((tourist, index, array) =>{
-    if (tourist.positionY > 400){
-      array.splice(index, 1);
-    }
+moveTourists () {
+  setInterval(function(){this.updateFrame();}.bind(this), 250);
+}
+
+updateFrame () {
+  this.Tourists.forEach((tourist) =>{
+    tourist.currentFrame = ++tourist.currentFrame % tourist.frameCount;
+    tourist.srcX = tourist.currentFrame * tourist.widthFrame;
   });
 }
 
@@ -177,6 +166,15 @@ crossStreet (){
     }
   });
 }
+
+deleteTourists (){
+  this.Tourists.forEach((tourist, index, array) =>{
+    if (tourist.positionY > 400){
+      array.splice(index, 1);
+    }
+  });
+}
+
 
 // Increase the speed of tourists after 25 seconds
 // speedUpTourists (){
@@ -235,6 +233,7 @@ collisionTouristCar (){
       48 + tourist.positionY > car.positionY) === true){
       console.log('Car gains one point');
       this.carPoints ++;
+      // tourist.img.src = tourist.blood.src;  TEST NOT WORKING
       //  DELETE  TOURIST FROM ARRAY UPON COLLISION
       array.splice(index, 1);
       }
@@ -243,26 +242,47 @@ collisionTouristCar (){
 }
 
 
-// ============ START & UPDATE FUNCTIONS  ==========================================================
+// ============ START && UPDATE && PAUSE FUNCTIONS  ==========================================================
 
   
-  start (updatePointsCB){
-    this.updatePointsCB = updatePointsCB;
-    this._update();
+  start (){
+      this._update();
   }
+
+
+  pause (){
+    if (this.status){
+      window.onkeydown = (e) => {
+        if (e.keyCode === 32) {
+           window.cancelAnimationFrame(this.intervalGame);
+           this.status = 'paused';
+           console.log(this.status);
+        }
+      };
+    }
+  }    
+  
+  // resume () {
+  //   if (this.status === 'paused'){
+  //     window.onkeydown = (e) => {
+  //       if (e.keyCode === 32) {
+  //       window.requestAnimationFrame(this._update);
+  //       }
+  //     };
+  //   } 
+  // } 
 
   _update (){
     this.ctx.clearRect(0,0,800,400);
     this._drawBoard();
     this.drawBackground();
-    this.moveBackground();
+    // this.moveBackground();
     this._drawBiker();
     this.moveBiker();
     this._drawCars();
     this.deleteCars();
     this.moveCar();
     this._drawTourists();
-    this.updateFrame ();
     this.deleteTourists();
     this.crossStreet();
     this.collisionBikerTourist();
@@ -272,6 +292,8 @@ collisionTouristCar (){
     this.collisionBikerCar();
     this.loseLive();
     this.speedUpCars();
+    this.pause();
+    // this.resume();   NOT WORKING
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
@@ -280,11 +302,11 @@ collisionTouristCar (){
 
   gameOver (){
     const over = document.querySelector('#game-over');
-    const stats = document.querySelector('#game-stats');
+    const statistics = document.querySelector('#statistics');
     if (this.lives <= 0){
-      over.style = 'display: block';
+      over.style = 'display: flex';
       play.style = 'display: none';
-      stats.style = 'display: none';
+      statistics.style = 'display: none';
     }
   }
 }

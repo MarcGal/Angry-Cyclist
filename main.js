@@ -1,13 +1,16 @@
 /*jshint esversion: 6 */
 document.onload = function() {
-  const start = document.querySelector('#start-page');
+  const start = document.querySelector('#start-button');
   const play = document.querySelector('#play');
   const restart = document.querySelector('#re-start');
+  const portada = document.querySelector('#portada');
   
-  // start.onclick = function (){
-  //   play.style = 'display: block';
-  //   start.style = 'display: none';
-  // };
+  start.onclick = function (){
+    start.style = 'display: none';
+    play.style = 'display: flex';
+    statistics.style = 'display: flex';
+    portada.style = 'display: none';
+  };
 
 
   restart.onclick = function (){
@@ -24,8 +27,6 @@ document.onload = function() {
   
 
   game.start(() => {
-    // console.log(points);
-    // showBikerPoints();
   });
 
 }();
