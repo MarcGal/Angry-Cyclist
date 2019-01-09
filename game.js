@@ -120,12 +120,12 @@ class Game {
   }
 
 // Increase the speed of cars after 30 seconds
-  speedUpCars (){
-    setTimeout(function (){
-      this.Cars.forEach(car=>{
-      car.speed = -2.5;
-    });}.bind(this), 25000);
-   }
+  // speedUpCars (){
+  //   setTimeout(function (){
+  //     this.Cars.forEach(car=>{
+  //     car.speed = -2.5;
+  //   });}.bind(this), 25000);
+  //  }
 
 
 
@@ -177,12 +177,12 @@ deleteTourists (){
 
 
 // Increase the speed of tourists after 25 seconds
-// speedUpTourists (){
-//   setTimeout(function (){
-//     this.Tourists.forEach(tourist=>{
-//     tourist.speed = 0.8;
-//   });}.bind(this), 25000);
-//  }
+speedUpTourists (){
+  setTimeout(function (){
+    this.Tourists.forEach(tourist=>{
+    tourist.speed = 0.8;
+  });}.bind(this), 25000);
+ }
 
 // ================== COLLISION FUNCTIONS ==========================================================
 

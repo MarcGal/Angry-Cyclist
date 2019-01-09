@@ -7,8 +7,6 @@ class Tourist {
     // this.blood.src = 'img/blood.jpeg'; BLOOD IMAGE
     this.width = 128;
     this.height = 192;
-    // this.imgWitdh = 15; old properties
-    // this.imgHeight = 25; old properties
     this.imgRows = 4;
     this.imgCols = 4;
     this.rowLeft = 1;
