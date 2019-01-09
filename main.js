@@ -4,12 +4,14 @@ document.onload = function() {
   const play = document.querySelector('#play');
   const restart = document.querySelector('#re-start');
   const portada = document.querySelector('#portada');
+  const body = document.querySelector('body');
   
   start.onclick = function (){
     start.style = 'display: none';
     play.style = 'display: flex';
     statistics.style = 'display: flex';
     portada.style = 'display: none';
+    body.style = 'background-color: #CCCCCC';
   };
 
 

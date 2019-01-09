@@ -251,26 +251,21 @@ collisionTouristCar (){
 
 
   pause (){
-    if (this.status){
-      window.onkeydown = (e) => {
-        if (e.keyCode === 32) {
-           window.cancelAnimationFrame(this.intervalGame);
-           this.status = 'paused';
-           console.log(this.status);
+    window.onkeydown = (e) => {
+      if (e.keyCode === 32) {
+        // Pause on first click
+        if (this.status === 'running'){
+          window.cancelAnimationFrame(this.intervalGame);
+          this.status = 'paused';
+        // Resume on second click
+        } else if (this.status === 'paused'){
+          this._update();
+          this.status = 'running';
         }
-      };
-    }
+      }
+    };
   }    
   
-  // resume () {
-  //   if (this.status === 'paused'){
-  //     window.onkeydown = (e) => {
-  //       if (e.keyCode === 32) {
-  //       window.requestAnimationFrame(this._update);
-  //       }
-  //     };
-  //   } 
-  // } 
 
   _update (){
     this.ctx.clearRect(0,0,800,400);
@@ -307,6 +302,7 @@ collisionTouristCar (){
       over.style = 'display: flex';
       play.style = 'display: none';
       statistics.style = 'display: none';
+      body.style = 'background-color: black';
     }
   }
 }
