@@ -84,7 +84,7 @@ class Game {
   //=============== CAR FUNCTIONS ==========================================================
 
   startGeneratingCars() { 
-    setInterval(function(){this.generateCars();}.bind(this), 2500);
+    this.generateCarsInterval = setInterval(function(){this.generateCars();}.bind(this), 2500);
   }
 
 
@@ -132,7 +132,7 @@ class Game {
 // ============ TOURIST FUNCTIONS  ==========================================================
 
 startGeneratingTourists() { 
-  setInterval(function(){this.generateTourists();}.bind(this), 2000);
+ this.touristGeneratorInterval = setInterval(function(){this.generateTourists();}.bind(this), 2000);
 }
 
 generateTourists (){
@@ -146,8 +146,21 @@ _drawTourists (){
 }
 
 moveTourists () {
-  setInterval(function(){this.updateFrame();}.bind(this), 250);
+ this.touristMovingInterval = setInterval(function(){this.updateFrame();}.bind(this), 250);
+ return this.touristInterval;
 }
+
+// pauseTourists (){
+//   if (this.status === 'paused'){
+//    clearInterval (this.startGeneratingTourists);
+//    clearInterval (this.moveTourists);
+//   // Resume on second click
+//   } else if (this.status === 'paused'){
+//     this.startGeneratingTourists();
+//     this.moveTourists();
+//   }
+// }
+
 
 updateFrame () {
   this.Tourists.forEach((tourist) =>{
@@ -255,10 +268,16 @@ collisionTouristCar (){
       if (e.keyCode === 32) {
         // Pause on first click
         if (this.status === 'running'){
+          clearInterval (this.touristMovingInterval);
+          clearInterval (this.touristGeneratorInterval);
+          clearInterval (this.generateCarsInterval);
           window.cancelAnimationFrame(this.intervalGame);
           this.status = 'paused';
         // Resume on second click
         } else if (this.status === 'paused'){
+          this.startGeneratingTourists();
+          this.moveTourists ();
+          this.startGeneratingCars();
           this._update();
           this.status = 'running';
         }
@@ -287,6 +306,7 @@ collisionTouristCar (){
     this.collisionBikerCar();
     this.loseLive();
     this.speedUpCars();
+    // this.pauseTourists ();
     this.pause();
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
