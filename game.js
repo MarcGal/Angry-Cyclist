@@ -120,12 +120,12 @@ class Game {
   }
 
 // Increase the speed of cars after 30 seconds
-  // speedUpCars (){
-  //   setTimeout(function (){
-  //     this.Cars.forEach(car=>{
-  //     car.speed = -2.5;
-  //   });}.bind(this), 25000);
-  //  }
+  speedUpCars (){
+    setTimeout(function (){
+      this.Cars.forEach(car=>{
+      car.speed = -2.5;
+    });}.bind(this), 25000);
+   }
 
 
 
@@ -177,12 +177,12 @@ deleteTourists (){
 
 
 // Increase the speed of tourists after 25 seconds
-speedUpTourists (){
-  setTimeout(function (){
-    this.Tourists.forEach(tourist=>{
-    tourist.speed = 0.8;
-  });}.bind(this), 25000);
- }
+// speedUpTourists (){
+//   setTimeout(function (){
+//     this.Tourists.forEach(tourist=>{
+//     tourist.speed = 0.8;
+//   });}.bind(this), 25000);
+//  }
 
 // ================== COLLISION FUNCTIONS ==========================================================
 
@@ -288,7 +288,6 @@ collisionTouristCar (){
     this.loseLive();
     this.speedUpCars();
     this.pause();
-    // this.resume();   NOT WORKING
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
   }
@@ -298,11 +297,13 @@ collisionTouristCar (){
   gameOver (){
     const over = document.querySelector('#game-over');
     const statistics = document.querySelector('#statistics');
+    const body = document.querySelector('body');
+
     if (this.lives <= 0){
       over.style = 'display: flex';
       play.style = 'display: none';
       statistics.style = 'display: none';
-      body.style = 'background-color: black';
+      body.style = 'background-color: 000000';
     }
   }
 }
