@@ -3,8 +3,6 @@ class Tourist {
   constructor (){
     this.img = new Image ();
     this.img.src = 'img/drunk_english.png';
-    // this.blood = new Image ();
-    // this.blood.src = 'img/blood.jpeg'; BLOOD IMAGE
     this.width = 128;
     this.height = 192;
     this.imgRows = 4;

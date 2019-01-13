@@ -13,12 +13,15 @@ class Game {
     this.lives = 3;
     this.intervalGame = undefined;
     this.Cars = [];
+    this.blood = new Blood ();
+    this.Bloods = [];
     this.carPoints = 0;
     this.Tourists = [];
     this.status = 'running';
     this.startGeneratingCars();
     this.startGeneratingTourists();
     this.moveTourists ();
+    this.orderToCleanBlood();
   }
 
 
@@ -150,18 +153,6 @@ moveTourists () {
  return this.touristInterval;
 }
 
-// pauseTourists (){
-//   if (this.status === 'paused'){
-//    clearInterval (this.startGeneratingTourists);
-//    clearInterval (this.moveTourists);
-//   // Resume on second click
-//   } else if (this.status === 'paused'){
-//     this.startGeneratingTourists();
-//     this.moveTourists();
-//   }
-// }
-
-
 updateFrame () {
   this.Tourists.forEach((tourist) =>{
     tourist.currentFrame = ++tourist.currentFrame % tourist.frameCount;
@@ -209,6 +200,7 @@ collisionBikerTourist (){
         this.biker.height + this.biker.positionY > tourist.positionY) === true){
         console.log('You just killed a tourist');
         // ADDS ONE POINT PER TOURIST
+        this.generateBlood (tourist.positionX, tourist.positionY);
         this.points ++;
         console.log(this.points);
         //  DELETE  TOURIST FROM ARRAY UPON COLLISION
@@ -216,7 +208,6 @@ collisionBikerTourist (){
     }
   });
 }
-
 
 // CHECK COLLISION BETWEEN BIKER AND CARS
 collisionBikerCar (){
@@ -244,9 +235,9 @@ collisionTouristCar (){
       tourist.positionX + 32 > car.positionX &&
       tourist.positionY < car.positionY + car.height &&
       48 + tourist.positionY > car.positionY) === true){
+      this.generateBlood (tourist.positionX, tourist.positionY);
       console.log('Car gains one point');
       this.carPoints ++;
-      // tourist.img.src = tourist.blood.src;  TEST NOT WORKING
       //  DELETE  TOURIST FROM ARRAY UPON COLLISION
       array.splice(index, 1);
       }
@@ -254,6 +245,27 @@ collisionTouristCar (){
   });
 }
 
+
+// ====================== Blood =======================================
+
+
+generateBlood (positionX, positionY){
+  this.Bloods.push(new Blood(positionX, positionY));
+}
+
+drawBlood (){
+  this.Bloods.forEach((blood)=> {
+  this.ctx.drawImage(blood.img, blood.positionX, blood.positionY, blood.width, blood.height);
+  });
+}
+
+orderToCleanBlood (){
+  this.cleanBloodInterval = setInterval(function(){this.cleanBlood();}.bind(this), 2000);
+}
+
+cleanBlood (){
+  this.Bloods.shift();
+}
 
 // ============ START && UPDATE && PAUSE FUNCTIONS  ==========================================================
 
@@ -300,13 +312,13 @@ collisionTouristCar (){
     this.deleteTourists();
     this.crossStreet();
     this.collisionBikerTourist();
+    this.drawBlood();
     this.showBikerPoints();
     this.collisionTouristCar();
     this.showCarPoints();
     this.collisionBikerCar();
     this.loseLive();
     this.speedUpCars();
-    // this.pauseTourists ();
     this.pause();
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
