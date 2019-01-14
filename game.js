@@ -7,6 +7,7 @@ class Game {
     this.biker = new Biker();
     this.car = new Car();
     this.tourist = new Tourist();
+    this.sound = new Sound ();
     this.ctx = options.ctx;
     this.points = 0;
     this.updatePointsCB = undefined;
@@ -201,6 +202,7 @@ collisionBikerTourist (){
         console.log('You just killed a tourist');
         // ADDS ONE POINT PER TOURIST
         this.generateBlood (tourist.positionX, tourist.positionY);
+        this.sound.play();
         this.points ++;
         console.log(this.points);
         //  DELETE  TOURIST FROM ARRAY UPON COLLISION
@@ -236,6 +238,7 @@ collisionTouristCar (){
       tourist.positionY < car.positionY + car.height &&
       48 + tourist.positionY > car.positionY) === true){
       this.generateBlood (tourist.positionX, tourist.positionY);
+      this.sound.play();
       console.log('Car gains one point');
       this.carPoints ++;
       //  DELETE  TOURIST FROM ARRAY UPON COLLISION
@@ -255,7 +258,7 @@ generateBlood (positionX, positionY){
 
 drawBlood (){
   this.Bloods.forEach((blood)=> {
-  this.ctx.drawImage(blood.img, blood.positionX, blood.positionY, blood.width, blood.height);
+  this.ctx.drawImage(blood.img, blood.positionX, blood.positionY + 10, blood.width, blood.height);
   });
 }
 
@@ -266,6 +269,10 @@ orderToCleanBlood (){
 cleanBlood (){
   this.Bloods.shift();
 }
+
+// ====================== SOUND =======================================
+
+
 
 // ============ START && UPDATE && PAUSE FUNCTIONS  ==========================================================
 
