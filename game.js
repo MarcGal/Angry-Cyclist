@@ -4,17 +4,17 @@ class Game {
 
   constructor (options){
     this.background = new Background();
-    this.biker = new Biker();
+    this.biker2 = new Biker2();
     this.car = new Car();
     this.tourist = new Tourist();
     this.sound = new Sound ();
+    this.blood = new Blood ();
     this.ctx = options.ctx;
     this.points = 0;
     this.updatePointsCB = undefined;
     this.lives = 3;
     this.intervalGame = undefined;
     this.Cars = [];
-    this.blood = new Blood ();
     this.Bloods = [];
     this.carPoints = 0;
     this.Tourists = [];
@@ -23,6 +23,7 @@ class Game {
     this.startGeneratingTourists();
     this.moveTourists ();
     this.orderToCleanBlood();
+    this._updateBikerFrame();
   }
 
 
@@ -48,30 +49,39 @@ class Game {
 
   //=============== BIKER FUNCTIONS ================================================
 
+  drawBiker2 (){
+    this.ctx.drawImage(this.biker2.img, this.biker2.srcX, this.biker2.srcY, this.biker2.widthFrame, this.biker2.heightFrame, this.biker2.positionX, this.biker2.positionY, this.biker2.widthFrame, this.biker2.heightFrame);
+  }
 
-  _drawBiker (){
-    this.ctx.drawImage(this.biker.img, this.biker.positionX, this.biker.positionY);
+  _updateBikerFrame(){
+    this.intervalId = clearInterval(this.intervalId);
+    this.intervalId = setInterval(()=>{
+      this.biker2.currentFrame = ++this.biker2.currentFrame % this.biker2.frameCount;
+      this.biker2.srcX = this.biker2.currentFrame * this.biker2.widthFrame;
+      // this._changeFrames();
+    },70);
   }
 
   moveBiker (){
     document.onkeydown = (e) => {
       switch (e.keyCode) {
         case 37: 
-        this.biker.moveLeft();  
+        this.biker2.moveLeft();
+        this.biker2.srcY = 169.2;  
         break;
         case 38:
-        this.biker.moveForward();
+        this.biker2.moveForward();
         break;
         case 39: 
-        this.biker.moveRight(); 
+        this.biker2.moveRight();
+        this.biker2.srcY = 42.3; 
         break;
         case 40:
-        this.biker.moveBackward();
+        this.biker2.moveBackward();
         break;
       }
     };
   }
-
 
   showBikerPoints (){
     let bikerPoints = document.querySelector('#biker-points>h2>span');
@@ -149,6 +159,7 @@ _drawTourists (){
   });
 }
 
+
 moveTourists () {
  this.touristMovingInterval = setInterval(function(){this.updateFrame();}.bind(this), 250);
  return this.touristInterval;
@@ -180,25 +191,16 @@ deleteTourists (){
   });
 }
 
-
-// Increase the speed of tourists after 25 seconds
-// speedUpTourists (){
-//   setTimeout(function (){
-//     this.Tourists.forEach(tourist=>{
-//     tourist.speed = 0.8;
-//   });}.bind(this), 25000);
-//  }
-
 // ================== COLLISION FUNCTIONS ==========================================================
 
 // CHECK COLLISION BETWEEN BIKER AND TOURISTS
 collisionBikerTourist (){
   this.Tourists.forEach((tourist, index, array )=> {
     // 2D COLLISION CHECK ALGORITHN SEE MDN
-    if ((this.biker.positionX < tourist.positionX + 32 &&
-        this.biker.positionX + this.biker.witdh > tourist.positionX &&
-        this.biker.positionY < tourist.positionY + 48 &&
-        this.biker.height + this.biker.positionY > tourist.positionY) === true){
+    if ((this.biker2.positionX < tourist.positionX + 32 &&
+        this.biker2.positionX + 43.2 > tourist.positionX &&
+        this.biker2.positionY < tourist.positionY + 48 &&
+        42.3 + this.biker2.positionY > tourist.positionY) === true){
         console.log('You just killed a tourist');
         // ADDS ONE POINT PER TOURIST
         this.generateBlood (tourist.positionX, tourist.positionY);
@@ -215,13 +217,13 @@ collisionBikerTourist (){
 collisionBikerCar (){
   this.Cars.forEach((car)=> {
     // 2D COLLISION CHECK ALGORITHN SEE MDN
-    if ((this.biker.positionX < car.positionX + car.witdh &&
-        this.biker.positionX + this.biker.witdh > car.positionX &&
-        this.biker.positionY < car.positionY + car.height &&
-        this.biker.height + this.biker.positionY > car.positionY) === true){
+    if ((this.biker2.positionX < car.positionX + car.witdh &&
+        this.biker2.positionX + 43.2 > car.positionX &&
+        this.biker2.positionY < car.positionY + car.height &&
+        42.3 + this.biker2.positionY > car.positionY) === true){
         console.log('You lost one live');
         // RESET TO STARTING POSITION WHEN HIT BY CAR
-        this.biker.positionX = 25;
+        this.biker2.positionX = 25;
         this.lives --;
         console.log(this.lives);
     }
@@ -270,10 +272,6 @@ cleanBlood (){
   this.Bloods.shift();
 }
 
-// ====================== SOUND =======================================
-
-
-
 // ============ START && UPDATE && PAUSE FUNCTIONS  ==========================================================
 
   
@@ -310,7 +308,7 @@ cleanBlood (){
     this._drawBoard();
     this.drawBackground();
     // this.moveBackground();
-    this._drawBiker();
+    this.drawBiker2 ();
     this.moveBiker();
     this._drawCars();
     this.deleteCars();
@@ -346,4 +344,5 @@ cleanBlood (){
     }
   }
 }
+
 
