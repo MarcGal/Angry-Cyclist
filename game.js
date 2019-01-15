@@ -24,6 +24,7 @@ class Game {
     this.moveTourists ();
     this.orderToCleanBlood();
     this._updateBikerFrame();
+    
   }
 
 
