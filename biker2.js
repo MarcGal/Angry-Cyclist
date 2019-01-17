@@ -16,12 +16,12 @@ class Biker2 {
     this.currentFrame = 0;
     this.frameCount = 5;
     this.positionX = 25;
-    this.positionY = 300;
+    this.positionY = 330;
     this.speed = 0.5;
   }
 
   moveRight (){
-    if (this.positionX + 30 > 800){
+    if (this.positionX + 30 > 1000){
       console.log("You can't continue");
     } else {
       this.positionX +=10;
@@ -37,7 +37,7 @@ class Biker2 {
   }
 
   moveForward (){
-    if (this.positionY - 6 < 250){
+    if (this.positionY - 6 < 295){
       console.log("You can't continue");
     } else {
       this.positionY -=10;
@@ -45,7 +45,7 @@ class Biker2 {
   }
 
   moveBackward (){
-    if (this.positionY + 30 > 400){
+    if (this.positionY + 30 > 500){
       console.log("You can't continue");
     } else {
       this.positionY +=10;

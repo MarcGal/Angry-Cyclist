@@ -15,8 +15,8 @@ class Tourist {
     this.srcY = 48;
     this.currentFrame = 0;
     this.frameCount = 4;
-    this.positionX = 810;
-    this.positionY = 200;
+    this.positionX = 1010;
+    this.positionY = 245;
     this.speed = 0.5;
     this.crossingPoint = this.crossingPoint();
   }
@@ -26,7 +26,7 @@ class Tourist {
   }
 
   crossingPoint () { //Generate random crossing point for each tourist
-    this.crossingPoint = Math.floor(Math.random() * (750 - 40) + 40);
+    this.crossingPoint = Math.floor(Math.random() * (950 - 40) + 40);
     console.log(`this is my crossing point ${this.crossingPoint}`);
     return this.crossingPoint;
   }

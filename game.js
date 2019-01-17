@@ -30,7 +30,7 @@ class Game {
 
 // ==================== BOARD FUCNCTIONS =====================================
   _drawBoard (){ 
-    this.ctx.fillRect(0,0, 800, 400);
+    this.ctx.fillRect(0,0, 1000, 500);
   }
 
   drawBackground (){
@@ -99,7 +99,7 @@ class Game {
   //=============== CAR FUNCTIONS ==========================================================
 
   startGeneratingCars() { 
-    this.generateCarsInterval = setInterval(function(){this.generateCars();}.bind(this), 2500);
+    this.generateCarsInterval = setInterval(function(){this.generateCars();}.bind(this), 2000);
   }
 
 
@@ -186,11 +186,20 @@ crossStreet (){
 
 deleteTourists (){
   this.Tourists.forEach((tourist, index, array) =>{
-    if (tourist.positionY > 400){
+    if (tourist.positionY > 500){
       array.splice(index, 1);
     }
   });
 }
+
+// Increase the speed of tourists after 30 seconds
+speedUpTourists (){
+  setTimeout(function (){
+    this.Tourist.forEach(tourist=>{
+    tourist.speed = 1.5;
+  });}.bind(this), 10000);
+ }
+
 
 // ================== COLLISION FUNCTIONS ==========================================================
 
@@ -305,7 +314,7 @@ cleanBlood (){
   
 
   _update (){
-    this.ctx.clearRect(0,0,800,400);
+    this.ctx.clearRect(0,0,1000,500);
     this._drawBoard();
     this.drawBackground();
     // this.moveBackground();
@@ -325,6 +334,7 @@ cleanBlood (){
     this.collisionBikerCar();
     this.loseLive();
     this.speedUpCars();
+    this.speedUpTourists();
     this.pause();
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
