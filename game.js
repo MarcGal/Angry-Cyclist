@@ -22,7 +22,6 @@ class Game {
     this.status = 'running';
     this.startGeneratingCars();
     this.startGeneratingTourists();
-    // this.createMoreCars ();
     this.moveTourists ();
     this.orderToCleanBlood();
     this._updateBikerFrame();
@@ -145,13 +144,6 @@ class Game {
     });}.bind(this), 25000);
    }
 
-  //  createMoreCars (){
-  //    console.log('kjhsdfs');
-  //   setTimeout(function (){
-  //     this.carCreateTimer = 1000;
-  //   },20000);
-  //  }
-
 
 // ============ TOURIST FUNCTIONS  ==========================================================
 
@@ -201,15 +193,6 @@ deleteTourists (){
   });
 }
 
-// Increase the speed of tourists after 30 seconds
-// speedUpTourists (){
-//   setTimeout(function (){
-//     this.Tourist.forEach(tourist=>{
-//     tourist.speed = 1.5;
-//   });}.bind(this), 10000);
-//  }
-
-
 // ================== COLLISION FUNCTIONS ==========================================================
 
 // CHECK COLLISION BETWEEN BIKER AND TOURISTS
@@ -255,10 +238,22 @@ collisionBikerCar (){
         console.log('You lost one live');
         // RESET TO STARTING POSITION WHEN HIT BY CAR
         this.biker2.positionX = 25;
+        this.blinkLives ();
         this.lives --;
         console.log(this.lives);
     }
   });
+}
+
+blinkLives () {
+  const lives = document.querySelector('#lives');
+  lives.classList.add("blinkLives");
+  this.removeBlinkLives ();
+}
+
+removeBlinkLives () {
+  const lives = document.querySelector('#lives');
+  setTimeout(function (){lives.classList.remove("blinkLives");}, 2000);
 }
 
 // CHECK COLLISION BETWEEN TOURISTS AND CARS
@@ -273,6 +268,7 @@ collisionTouristCar (){
       this.generateBlood (tourist.positionX, tourist.positionY);
       this.sound.play();
       console.log('Car gains one point');
+      // this.blinkCarPoints();
       this.carPoints ++;
       //  DELETE  TOURIST FROM ARRAY UPON COLLISION
       array.splice(index, 1);
@@ -280,6 +276,17 @@ collisionTouristCar (){
     });
   });
 }
+
+// blinkCarPoints () {
+//   const carPoints = document.querySelector('#car-points');
+//   carPoints.classList.add("blinkCarPoints");
+//   this.removeBlinkCarPoints ();
+// }
+
+// removeBlinkCarPoints () {
+//   const carPoints = document.querySelector('car-points');
+//   setTimeout(function (){carPoints.classList.remove("blinkCarPoints");}, 1000);
+// }
 
 
 // ====================== Blood =======================================
@@ -355,8 +362,6 @@ cleanBlood (){
     this.collisionBikerCar();
     this.loseLive();
     this.speedUpCars();
-    // this.speedUpTourists();
-    // this.createMoreCars ();
     this.pause();
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));
@@ -368,7 +373,6 @@ cleanBlood (){
     const over = document.querySelector('#game-over');
     const statistics = document.querySelector('#statistics');
     const body = document.querySelector('body');
-
     if (this.lives <= 0){
       over.style = 'display: flex';
       play.style = 'display: none';

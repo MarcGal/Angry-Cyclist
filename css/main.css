@@ -98,6 +98,7 @@ body {
   margin-top: 4%;
 }
 
+/* ========================== BLINK BIKER POINTS ================== */
 @keyframes blinkBikerPoints {
   0% {
     background-color:  #ed7c21;
@@ -117,3 +118,43 @@ body {
 }
 
 
+/* ========================== BLINK CAR POINTS ================== */
+
+@keyframes blinkCarPoints {
+  0% {
+    background-color:  #ed7c21;
+  }
+  50% {
+    background-color: blue;
+  }
+  100% {
+    background-color:  #ed7c21;
+  }
+}
+
+.blinkCarPoints {
+  animation-name: blinkCarPoints;
+  animation-duration: 2s;
+  animation-iteration-count: 2;
+}
+
+/* ========================== BLINK LIVES ================== */
+
+
+@keyframes blinkLives {
+  0% {
+    background-color:  #ed7c21;
+  }
+  50% {
+    background-color: red;
+  }
+  100% {
+    background-color:  #ed7c21;
+  }
+}
+
+.blinkLives {
+  animation-name: blinkCarPoints;
+  animation-duration: 2s;
+  animation-iteration-count: 2;
+}
