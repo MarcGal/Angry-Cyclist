@@ -291,7 +291,6 @@ collisionTouristCar (){
 
 // ====================== Blood =======================================
 
-
 generateBlood (positionX, positionY){
   this.Bloods.push(new Blood(positionX, positionY));
 }
