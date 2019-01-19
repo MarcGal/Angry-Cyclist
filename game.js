@@ -18,11 +18,11 @@ class Game {
     this.Bloods = [];
     this.carPoints = 0;
     this.Tourists = [];
-    this.carCreateTimer = 2000;
+    this.carCreateTimer = 3000;
     this.status = 'running';
     this.startGeneratingCars();
     this.startGeneratingTourists();
-    this.createMoreCars ();
+    // this.createMoreCars ();
     this.moveTourists ();
     this.orderToCleanBlood();
     this._updateBikerFrame();
@@ -139,17 +139,18 @@ class Game {
 // Increase the speed of cars after 30 seconds
   speedUpCars (){
     setTimeout(function (){
+      this.carCreateTimer = 2000;
       this.Cars.forEach(car=>{
       car.speed = -2.5;
     });}.bind(this), 25000);
    }
 
-   createMoreCars (){
-     console.log('kjhsdfs');
-    setTimeout(function (){
-      this.carCreateTimer = 1000;
-    },20000);
-   }
+  //  createMoreCars (){
+  //    console.log('kjhsdfs');
+  //   setTimeout(function (){
+  //     this.carCreateTimer = 1000;
+  //   },20000);
+  //  }
 
 
 // ============ TOURIST FUNCTIONS  ==========================================================
@@ -223,12 +224,24 @@ collisionBikerTourist (){
         // ADDS ONE POINT PER TOURIST
         this.generateBlood (tourist.positionX, tourist.positionY);
         this.sound.play();
+        this.blinkBikerPoints();
         this.points ++;
         console.log(this.points);
         //  DELETE  TOURIST FROM ARRAY UPON COLLISION
         array.splice(index, 1);
     }
   });
+}
+
+blinkBikerPoints () {
+  const bikerPoints = document.querySelector('#biker-points');
+  bikerPoints.classList.add("blinkBikerPoints");
+  this.removeblinkBikerPoints ();
+}
+
+removeblinkBikerPoints () {
+  const bikerPoints = document.querySelector('#biker-points');
+  setTimeout(function (){bikerPoints.classList.remove("blinkBikerPoints");}, 1000);
 }
 
 // CHECK COLLISION BETWEEN BIKER AND CARS

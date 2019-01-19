@@ -98,4 +98,22 @@ body {
   margin-top: 4%;
 }
 
+@keyframes blinkBikerPoints {
+  0% {
+    background-color:  #ed7c21;
+  }
+  50% {
+    background-color: green;
+  }
+  100% {
+    background-color:  #ed7c21;
+  }
+}
+
+.blinkBikerPoints {
+  animation-name: blinkBikerPoints;
+  animation-duration: 2s;
+  animation-iteration-count: 2;
+}
+
 

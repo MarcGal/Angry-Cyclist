@@ -2,9 +2,9 @@
 class Car {
   constructor (){
     this.img = new Image();
-    this.img.src = 'img/Car.png';
-    this.witdh = 40;
-    this.height = 25;
+    this.img.src = 'img/Car_3Small.png';
+    this.witdh = 80;
+    this.height = 40;
     this.positionX = 1020;
     this.positionY = this.initialPositionY();
     this.speed = -1;
