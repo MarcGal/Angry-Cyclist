@@ -18,9 +18,11 @@ class Game {
     this.Bloods = [];
     this.carPoints = 0;
     this.Tourists = [];
+    this.carCreateTimer = 2000;
     this.status = 'running';
     this.startGeneratingCars();
     this.startGeneratingTourists();
+    this.createMoreCars ();
     this.moveTourists ();
     this.orderToCleanBlood();
     this._updateBikerFrame();
@@ -99,7 +101,7 @@ class Game {
   //=============== CAR FUNCTIONS ==========================================================
 
   startGeneratingCars() { 
-    this.generateCarsInterval = setInterval(function(){this.generateCars();}.bind(this), 2000);
+    this.generateCarsInterval = setInterval(function(){this.generateCars();}.bind(this), this.carCreateTimer);
   }
 
 
@@ -142,6 +144,12 @@ class Game {
     });}.bind(this), 25000);
    }
 
+   createMoreCars (){
+     console.log('kjhsdfs');
+    setTimeout(function (){
+      this.carCreateTimer = 1000;
+    },20000);
+   }
 
 
 // ============ TOURIST FUNCTIONS  ==========================================================
@@ -193,12 +201,12 @@ deleteTourists (){
 }
 
 // Increase the speed of tourists after 30 seconds
-speedUpTourists (){
-  setTimeout(function (){
-    this.Tourist.forEach(tourist=>{
-    tourist.speed = 1.5;
-  });}.bind(this), 10000);
- }
+// speedUpTourists (){
+//   setTimeout(function (){
+//     this.Tourist.forEach(tourist=>{
+//     tourist.speed = 1.5;
+//   });}.bind(this), 10000);
+//  }
 
 
 // ================== COLLISION FUNCTIONS ==========================================================
@@ -334,7 +342,8 @@ cleanBlood (){
     this.collisionBikerCar();
     this.loseLive();
     this.speedUpCars();
-    this.speedUpTourists();
+    // this.speedUpTourists();
+    // this.createMoreCars ();
     this.pause();
     this.gameOver();
     this.intervalGame = window.requestAnimationFrame(this._update.bind(this));

@@ -11,7 +11,7 @@ document.onload = function() {
     play.style = 'display: flex';
     statistics.style = 'display: flex';
     portada.style = 'display: none';
-    body.style = 'background-color: #CCCCCC';
+    body.style = 'background-color: black';
   };
 
 
