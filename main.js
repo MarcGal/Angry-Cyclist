@@ -12,6 +12,14 @@ document.onload = function() {
     statistics.style = 'display: flex';
     portada.style = 'display: none';
     body.style = 'background-color: black';
+    
+    const ctx = canvas.getContext('2d');
+    const game = new Game({
+      ctx: ctx,
+    });
+
+    game.start(() => {
+    });
   };
 
 
@@ -20,15 +28,5 @@ document.onload = function() {
   };
 
   const canvas = document.getElementById('game');
-  const ctx = canvas.getContext('2d');
-  
-  const game = new Game({
-    ctx: ctx,
-  });
-
-  
-
-  game.start(() => {
-  });
 
 }();
