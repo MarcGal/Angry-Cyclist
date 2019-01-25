@@ -24,7 +24,8 @@ class Game {
     this.startGeneratingTourists();
     this.moveTourists ();
     this.orderToCleanBlood();
-    this._updateBikerFrame();
+    // this._updateBikerFrame();
+    this.moveBiker();
     
   }
 
@@ -69,17 +70,21 @@ class Game {
       switch (e.keyCode) {
         case 37: 
         this.biker2.moveLeft();
+        this._updateBikerFrame();
         this.biker2.srcY = 169.2;  
         break;
         case 38:
         this.biker2.moveForward();
+        this._updateBikerFrame();
         break;
         case 39: 
         this.biker2.moveRight();
+        this._updateBikerFrame();
         this.biker2.srcY = 42.3; 
         break;
         case 40:
         this.biker2.moveBackward();
+        this._updateBikerFrame();
         break;
       }
     };
@@ -233,8 +238,8 @@ collisionBikerCar (){
     // 2D COLLISION CHECK ALGORITHN SEE MDN
     if ((this.biker2.positionX < car.positionX + car.witdh &&
         this.biker2.positionX + 43.2 > car.positionX &&
-        this.biker2.positionY < car.positionY + car.height &&
-        42.3 + this.biker2.positionY > car.positionY) === true){
+        this.biker2.positionY < car.positionY + car.height - 15 &&
+        42.3 + this.biker2.positionY - 15 > car.positionY) === true){
         console.log('You lost one live');
         // RESET TO STARTING POSITION WHEN HIT BY CAR
         this.biker2.positionX = 25;
@@ -345,9 +350,9 @@ cleanBlood (){
     this.ctx.clearRect(0,0,1000,500);
     this._drawBoard();
     this.drawBackground();
-    // this.moveBackground();
+    this.moveBackground();
     this.drawBiker2 ();
-    this.moveBiker();
+    // this.moveBiker();
     this._drawCars();
     this.deleteCars();
     this.moveCar();
