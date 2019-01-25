@@ -18,7 +18,7 @@ class Game {
     this.Bloods = [];
     this.carPoints = 0;
     this.Tourists = [];
-    this.carCreateTimer = 3000;
+    this.carCreateTimer = 2000;
     this.status = 'running';
     this.startGeneratingCars();
     this.startGeneratingTourists();
