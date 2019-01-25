@@ -27,6 +27,7 @@ class Game {
     // this._updateBikerFrame();
     this.moveBiker();
     
+    
   }
 
 
